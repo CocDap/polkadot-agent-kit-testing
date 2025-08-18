@@ -1,0 +1,29 @@
+{
+  "name": "polkadot-agent-kit-testing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "pnpm build && pnpm start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.7.0",
+  "devDependencies": {
+    "@galacticcouncil/api-augment": "0.3.0",
+    "@types/node": "^24.3.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@langchain/core": "^0.3.71",
+    "@langchain/ollama": "^0.2.3",
+    "@polkadot-agent-kit/llm": "^1.1.1",
+    "@polkadot-agent-kit/sdk": "^1.1.1",
+    "@polkadot-api/descriptors": "file:.papi/descriptors",
+    "dotenv": "16.3.1",
+    "polkadot-api": "^1.16.1"
+  }
+}
