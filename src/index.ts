@@ -15,7 +15,7 @@ const privateKey = process.env.PRIVATE_KEY_AGENT || ''
 
 async function runAgent(query: string) {
     // Initialize PolkadotAgentKit
-    const agent = new PolkadotAgentKit(privateKey, { keyType: 'Sr25519', chains:["polkadot","polkadot_asset_hub"]});
+    const agent = new PolkadotAgentKit({privateKey, keyType: 'Sr25519', chains:["polkadot","polkadot_asset_hub"]});
     await agent.initializeApi()
 
     // Get LangChain tools
