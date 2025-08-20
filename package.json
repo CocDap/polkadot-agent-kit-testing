@@ -25,6 +25,9 @@
     "@polkadot-agent-kit/mcp": "^1.1.4",
     "@polkadot-api/descriptors": "file:.papi/descriptors",
     "dotenv": "16.3.1",
-    "polkadot-api": "^1.16.1"
+    "polkadot-api": "^1.16.1",
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "zod": "^3.22.4",
+    "zod-to-json-schema": "^3.24.3"
   }
 }
