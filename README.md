@@ -1,5 +1,5 @@
 
-# Polkadot Agent Kit Testing 
+# Polkadot Agent Kit Testing SDK 
 
 A testing environment for the Polkadot Agent Kit that demonstrates how to interact with Polkadot using AI agents.
 
@@ -44,19 +44,8 @@ curl http://localhost:11434
 
 You should receive a response indicating Ollama is running.
 
-### 3. Configure Polkadot API
 
-**Note:** This step is only required if your `package.json` is missing `@polkadot-api/descriptors` dependency and the `.papi` folder doesn't exist.
-
-The Polkadot Agent Kit uses `polkadot-api` for client interactions. You need to install the `.papi` descriptors:
-
-```bash
-npx papi add polkadot -n polkadot
-```
-
-This automatically generates the required `@polkadot-api/descriptors` module and creates the `.papi` folder.
-
-### 4. Environment Configuration
+### 3. Environment Configuration
 
 Create a `.env` file in the project root with your private key:
 
@@ -103,12 +92,6 @@ runAgent("Transfer 0.1 DOT to address 5F... on Polkadot");
 
 ### Common Errors
 
-#### Error: Cannot find module '@polkadot-api/descriptors'
-**Solution:** Run the papi command to generate descriptors:
-```bash
-npx papi add polkadot -n polkadot
-```
-
 #### Error: Ollama connection failed
 **Solution:** Ensure Ollama is running:
 ```bash
@@ -129,6 +112,41 @@ curl http://localhost:11434
 ```bash
 ollama run qwen3:latest
 ```
+
+
+
+# Polkadot Agent Kit Testing MCP Server 
+
+## Step 1: Build the project 
+
+```bash
+pnpm build
+```
+## Step 2: Run Inspector for Polkadot Agent Kit MCP Server 
+```
+npx @modelcontextprotocol/inspector node dist/mcp.js
+
+Starting MCP inspector...
+⚙️ Proxy server listening on 127.0.0.1:6277
+🔑 Session token: d3660d11c4b607c01da5400f34f0016825633dbedbd57945e945f7ffadc0ce2f
+Use this token to authenticate requests or set DANGEROUSLY_OMIT_AUTH=true to disable auth
+
+🔗 Open inspector with token pre-filled:
+   http://localhost:6274/?MCP_PROXY_AUTH_TOKEN=d3660d11c4b607c01da5400f34f0016825633dbedbd57945e945f7ffadc0ce2f
+
+🔍 MCP Inspector is up and running at http://127.0.0.1:6274 🚀
+New STDIO connection request
+
+```
+
+## Step 3: 
+Waiting for Polkadot Agent Kit initilization, the Inspector will show all available tools 
+
+![List tools](/images/list_tools.png)
+
+## Step 4: Call check_balance took
+
+![Check balance](/images/check_balance.png)
 
 
 
