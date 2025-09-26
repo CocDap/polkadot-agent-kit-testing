@@ -4,28 +4,42 @@ import { ASSETS_PROMPT, NOMINATION_PROMPT, SWAP_PROMPT, IDENTITY_PROMPT, BIFROST
 export const SYSTEM_PROMPT = ASSETS_PROMPT + SWAP_PROMPT + NOMINATION_PROMPT + IDENTITY_PROMPT + BIFROST_PROMPT;
 
 import { ChatOllama } from "@langchain/ollama";
+import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 
 import dotenv from 'dotenv'
 
 dotenv.config()
 
-// Make sure your private key is removing prefix `0x` 
 const privateKey = process.env.PRIVATE_KEY_AGENT || ''
+const geminiApiKey = process.env.GEMINI_API_KEY || ''
 
 
-async function runAgent(query: string) {
+type ModelType = 'ollama' | 'gemini';
+
+async function runAgent(query: string, modelType: ModelType = 'ollama') {
     // Initialize PolkadotAgentKit
-    const agent = new PolkadotAgentKit({privateKey, keyType: 'Sr25519', chains:["polkadot","polkadot_asset_hub"]});
+    const agent = new PolkadotAgentKit({privateKey, keyType: 'Sr25519', chains:["polkadot","polkadot_asset_hub", "west"]});
     await agent.initializeApi()
 
     // Get LangChain tools
     const tools = getLangChainTools(agent)
 
+    let chatModel;
 
-    const chatModel = new ChatOllama({
+    if (modelType === 'gemini') {
+      if (!geminiApiKey) {
+        throw new Error("GEMINI_API_KEY is not set in the environment variables.");
+      }
+      chatModel = new ChatGoogleGenerativeAI({
+        apiKey: geminiApiKey,
+        model: "gemini-2.0-flash",
+      });
+    } else {
+      chatModel = new ChatOllama({
         model: "qwen3:latest",
       });
-    
+    }
+
     const modelWithTools = chatModel.bindTools(tools);
 
     try {
@@ -58,4 +72,15 @@ async function runAgent(query: string) {
 
 }
 
-runAgent("Check balance on Polkadot Asset Hub");
+// Check balance 
+// runAgent("Check balance on Polkadot Asset Hub");
+
+// To use Gemini, uncomment the line below and ensure GEMINI_API_KEY is set in your .env file
+// runAgent("Check balance on Polkadot Asset Hub", "gemini");
+
+
+// XCM native with Ollama 
+runAgent("transfer 0.1 WND to 5Ccmxb84eREZmtSkrLJSYp6QxJwNvmNbrfBm4p5B5VnKrB8z from Westend to Westend Asset Hub");
+
+// XCM native with Gemini  
+// runAgent("transfer 0.1 WND to 5Ccmxb84eREZmtSkrLJSYp6QxJwNvmNbrfBm4p5B5VnKrB8z from Westend to Westend Asset Hub", "gemini");

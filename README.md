@@ -60,8 +60,23 @@ Add your private key to the `.env` file:
 PRIVATE_KEY_AGENT=your_private_key_here_without_0x_prefix
 ```
 
+### 4. Environment Setup
 
-## Running the Agent
+Create a `.env` file with your private key and, optionally, your Gemini API key:
+
+```env
+PRIVATE_KEY_AGENT=your_private_key_here_without_0x_prefix
+GEMINI_API_key=your_gemini_api_key_here
+```
+
+## Testing Approaches
+
+This project supports testing with two different large language models:
+
+- **Ollama (default)**: A local model for offline testing
+- **Google Gemini**: A cloud-based model for advanced testing
+
+### Approach 1: Direct SDK Testing
 
 Build and run the agent in development mode:
 
@@ -86,6 +101,9 @@ You can modify the query in `src/index.ts` by changing the `runAgent()` call:
 // Example queries you can try:
 runAgent("Check balance on Polkadot Asset Hub");
 runAgent("Transfer 0.1 DOT to address 5F... on Polkadot");
+
+// To use Gemini
+// runAgent("Check balance on Polkadot Asset Hub", "gemini");
 ```
 
 ## Troubleshooting
