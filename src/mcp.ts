@@ -4,8 +4,7 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
-import { PolkadotAgentKit } from "@polkadot-agent-kit/sdk";
-import { getMcpTools } from "@polkadot-agent-kit/mcp";
+import { PolkadotAgentKit, getMcpTools } from "@polkadot-agent-kit/sdk";
 import * as dotenv from "dotenv";
 dotenv.config();
 
