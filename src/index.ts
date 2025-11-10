@@ -73,14 +73,14 @@ async function runAgent(query: string, modelType: ModelType = 'ollama') {
 }
 
 // Check balance 
-// runAgent("Check balance on Polkadot Asset Hub");
+runAgent("Check balance on Polkadot Asset Hub");
 
 // To use Gemini, uncomment the line below and ensure GEMINI_API_KEY is set in your .env file
 // runAgent("Check balance on Polkadot Asset Hub", "gemini");
 
 
 // XCM native with Ollama 
-runAgent("transfer 0.1 WND to 5Ccmxb84eREZmtSkrLJSYp6QxJwNvmNbrfBm4p5B5VnKrB8z from Westend to Westend Asset Hub");
+// runAgent("transfer 0.1 WND to 5Ccmxb84eREZmtSkrLJSYp6QxJwNvmNbrfBm4p5B5VnKrB8z from Westend to Westend Asset Hub");
 
 // XCM native with Gemini  
 // runAgent("transfer 0.1 WND to 5Ccmxb84eREZmtSkrLJSYp6QxJwNvmNbrfBm4p5B5VnKrB8z from Westend to Westend Asset Hub", "gemini");

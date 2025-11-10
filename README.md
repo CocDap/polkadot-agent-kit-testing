@@ -7,7 +7,7 @@ A testing environment for the Polkadot Agent Kit that demonstrates how to intera
 
 Before you begin, ensure you have the following installed:
 
-- **Node.js** (v20 or higher)
+- **Node.js** (v22 or higher)
 - **pnpm** (v10.7.0 or higher)
 - **Ollama** (latest version)
 
@@ -131,7 +131,22 @@ curl http://localhost:11434
 ollama run qwen3:latest
 ```
 
+#### Error: Invalid node version
 
+```
+/Users/x/polkadot/openguild/test/polkadot-agent-kit-testing/node_modules/.pnpm/@polkadot-api+substrate-bindings@0.16.5/node_modules/@polkadot-api/substrate-bindings/dist/index.js:4
+var base = require('@scure/base');
+           ^
+
+Error [ERR_REQUIRE_ESM]: require() of ES Module /Users/x/polkadot/openguild/test/polkadot-agent-kit-testing/node_modules/.pnpm/@scure+base@2.0.0/node_modules/@scure/base/index.js from /Users/x/polkadot/openguild/test/polkadot-agent-kit-testing/node_modules/.pnpm/@polkadot-api+substrate-bindings@0.16.5/node_modules/@polkadot-api/substrate-bindings/dist/index.js not supported.
+Instead change the require of /Users/x/polkadot/openguild/test/polkadot-agent-kit-testing/node_modules/.pnpm/@scure+base@2.0.0/node_modules/@scure/base/index.js in /Users/x/polkadot/openguild/test/polkadot-agent-kit-testing/node_modules/.pnpm/@polkadot-api+substrate-bindings@0.16.5/node_modules/@polkadot-api/substrate-bindings/dist/index.js to a dynamic import() which is available in all CommonJS modules.
+    at Object.<anonymous> (/Users/x/polkadot/openguild/test/polkadot-agent-kit-testing/node_modules/.pnpm/@polkadot-api+substrate-bindings@0.16.5/node_modules/@polkadot-api/substrate-bindings/dist/index.js:4:12) {
+  code: 'ERR_REQUIRE_ESM'
+}
+
+```
+
+**Solution:** Upgrade to higher node version > 22
 
 # Polkadot Agent Kit Testing MCP Server 
 
