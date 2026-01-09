@@ -19,7 +19,7 @@ type ModelType = 'ollama' | 'gemini';
 
 async function runAgent(query: string, modelType: ModelType = 'ollama') {
     // Initialize PolkadotAgentKit
-    const agent = new PolkadotAgentKit({privateKey, keyType: 'Sr25519', chains:["polkadot","polkadot_asset_hub", "west"]});
+    const agent = new PolkadotAgentKit({privateKey, keyType: 'Sr25519', chains:["paseo"]});
     await agent.initializeApi()
 
 
@@ -54,12 +54,16 @@ async function runAgent(query: string, modelType: ModelType = 'ollama') {
       ];
   
       const aiMessage = await modelWithTools.invoke(messages);
+      console.log("AI Message:", aiMessage);
   
       if (aiMessage.tool_calls && aiMessage.tool_calls.length > 0) {
         console.log("Agent is calling tools...");
+        console.log("Tool calls:", aiMessage.tool_calls);
         for (const toolCall of aiMessage.tool_calls) {
+          console.log("Tool call:", toolCall);
           const selectedTool = tools.find((t) => t.name === toolCall.name);
           if (selectedTool) {
+            
             const toolResult = await selectedTool.invoke(toolCall.args);
             console.log(`- Tool Result (${toolCall.name}): ${toolResult}`);
           } else {
@@ -77,7 +81,7 @@ async function runAgent(query: string, modelType: ModelType = 'ollama') {
 }
 
 // Check balance 
-// runAgent("Check balance on Polkadot Asset Hub");
+runAgent("Check balance on paseo");
 
 // To use Gemini, uncomment the line below and ensure GEMINI_API_KEY is set in your .env file
 // runAgent("Check balance on Polkadot Asset Hub", "gemini");
@@ -89,4 +93,4 @@ async function runAgent(query: string, modelType: ModelType = 'ollama') {
 // XCM native with Gemini  
 // runAgent("transfer 0.1 WND to 5Ccmxb84eREZmtSkrLJSYp6QxJwNvmNbrfBm4p5B5VnKrB8z from Westend to Westend Asset Hub", "gemini");
 
-runAgent("Vote proposal id 1 with nay");
+// runAgent("Vote proposal id 1 with nay");
