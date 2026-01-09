@@ -7,6 +7,7 @@ import { ChatOllama } from "@langchain/ollama";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 
 import dotenv from 'dotenv'
+import { voteAction } from './customTools';
 
 dotenv.config()
 
@@ -18,8 +19,11 @@ type ModelType = 'ollama' | 'gemini';
 
 async function runAgent(query: string, modelType: ModelType = 'ollama') {
     // Initialize PolkadotAgentKit
-    const agent = new PolkadotAgentKit({privateKey, keyType: 'Sr25519', chains:["polkadot","polkadot_asset_hub", "west"]});
+    const agent = new PolkadotAgentKit({privateKey, keyType: 'Sr25519', chains:["paseo"]});
     await agent.initializeApi()
+
+
+    agent.addCustomTools([voteAction]);
 
     // Get LangChain tools
     const tools = getLangChainTools(agent)
@@ -50,12 +54,16 @@ async function runAgent(query: string, modelType: ModelType = 'ollama') {
       ];
   
       const aiMessage = await modelWithTools.invoke(messages);
+      console.log("AI Message:", aiMessage);
   
       if (aiMessage.tool_calls && aiMessage.tool_calls.length > 0) {
         console.log("Agent is calling tools...");
+        console.log("Tool calls:", aiMessage.tool_calls);
         for (const toolCall of aiMessage.tool_calls) {
+          console.log("Tool call:", toolCall);
           const selectedTool = tools.find((t) => t.name === toolCall.name);
           if (selectedTool) {
+            
             const toolResult = await selectedTool.invoke(toolCall.args);
             console.log(`- Tool Result (${toolCall.name}): ${toolResult}`);
           } else {
@@ -84,3 +92,5 @@ runAgent("Check balance on Polkadot Asset Hub");
 
 // XCM native with Gemini  
 // runAgent("transfer 0.1 WND to 5Ccmxb84eREZmtSkrLJSYp6QxJwNvmNbrfBm4p5B5VnKrB8z from Westend to Westend Asset Hub", "gemini");
+
+// runAgent("Vote proposal id 1 with nay");
