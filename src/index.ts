@@ -81,7 +81,7 @@ async function runAgent(query: string, modelType: ModelType = 'ollama') {
 }
 
 // Check balance 
-runAgent("Check balance on paseo");
+runAgent("Check balance on Polkadot Asset Hub");
 
 // To use Gemini, uncomment the line below and ensure GEMINI_API_KEY is set in your .env file
 // runAgent("Check balance on Polkadot Asset Hub", "gemini");
